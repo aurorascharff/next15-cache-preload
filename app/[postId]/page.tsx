@@ -44,14 +44,14 @@ async function Comments({ postId }: { postId: string }) {
   const comments = await getComments(postId);
 
   return (
-    <>
+    <div className="rounded border-2 border-slate-500 p-4">
       <h2>Comments</h2>
       <ul>
         {comments.map(comment => {
           return <li key={comment.id}>{comment.body}</li>;
         })}
       </ul>
-    </>
+    </div>
   );
 }
 
@@ -59,19 +59,20 @@ async function Post({ postId }: { postId: string }) {
   const post = await getPost(postId);
 
   return (
-    <>
+    <div className="rounded border-2 border-blue-500 p-4">
       <h2>Title: {post?.title}</h2>
       Post comments:
       <Suspense fallback={<div>Loading comments...</div>}>
         <Comments postId={postId} />
       </Suspense>
-    </>
+    </div>
   );
 }
 
 export default async function PostPage({ params }: { params: Promise<{ postId: string }> }) {
   const { postId } = await params;
 
+  // Prefetch the comments
   getComments(postId);
 
   return (
