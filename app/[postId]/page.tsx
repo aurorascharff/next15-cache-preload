@@ -20,6 +20,7 @@ const getPost = async (postId: string) => {
   });
 };
 
+// When using cache(), the return value can be cached/memoized across multiple server components per render
 const getComments = cache(async (postId: string) => {
   await new Promise(resolve => {
     return setTimeout(resolve, 1000);
@@ -72,7 +73,7 @@ async function Post({ postId }: { postId: string }) {
 export default async function PostPage({ params }: { params: Promise<{ postId: string }> }) {
   const { postId } = await params;
 
-  // Prefetch the comments
+  // Prefetch the comments, but don't await the promise, so it doesn't block rendering
   getComments(postId);
 
   return (
