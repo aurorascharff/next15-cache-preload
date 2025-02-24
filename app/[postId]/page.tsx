@@ -59,6 +59,7 @@ async function Comments({ postId }: { postId: string }) {
 async function Post({ postId }: { postId: string }) {
   const post = await getPost(postId);
 
+  // The suspense boundary around <Comments> will not be visible, because the await has already completed
   return (
     <div className="rounded border-2 border-blue-500 p-4">
       <h2>Title: {post?.title}</h2>
