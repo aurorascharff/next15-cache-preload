@@ -20,7 +20,7 @@ const getPost = async (postId: string) => {
   });
 };
 
-// When using cache(), the return value can be cached/memoized across multiple server components per render
+// When using cache(), the return value can be cached/memoized per render across multiple server components
 const getComments = cache(async (postId: string) => {
   await new Promise(resolve => {
     return setTimeout(resolve, 1000);
