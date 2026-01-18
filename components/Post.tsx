@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { getPost } from '@/data/post';
-import { preloadComments } from './Comments';
+import { Comments, preloadComments } from './Comments';
 
 export async function Post({ postId }: { postId: string }) {
   // Prefetch the comments, but don't await the promise, so it doesn't block rendering
@@ -12,7 +12,9 @@ export async function Post({ postId }: { postId: string }) {
     <div className="rounded border-2 border-blue-500 p-4">
       <h2>Title: {post?.title}</h2>
       Post comments:
-      <Suspense fallback={<div>Loading comments...</div>} />
+      <Suspense fallback={<div>Loading comments...</div>}>
+        <Comments postId={postId} />
+      </Suspense>
     </div>
   );
 }
